@@ -128,7 +128,7 @@ module JavaBuildpack
       def copy_resources(target_directory = @sandbox)
         resources = RESOURCES_DIRECTORY + @component_id
         print ( "************************************" )
-        print { @environment_variables }
+        print ( @environment_variables )
 
         if resources.exist?
           FileUtils.mkdir_p target_directory
