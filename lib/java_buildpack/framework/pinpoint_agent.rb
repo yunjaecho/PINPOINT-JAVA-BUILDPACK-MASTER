@@ -43,15 +43,17 @@ module JavaBuildpack
         download_zip(false, @droplet.sandbox, 'Pinpoint Agent')
         @droplet.copy_resources
 
-        credentials = @application.services.find_service(FILTER)['credentials']
-        pinpoint_config_uri=credentials['pinpoint.config.uri']
+        # credentials = @application.services.find_service(FILTER)['credentials']
+        # pinpoint_config_uri=credentials['pinpoint.config.uri']
+        pinpoint_config_uri="https://raw.githubusercontent.com/yunjaecho/PINPOINT-BUILDPACK-MASTER/master/pinpoint.config"
         @logger.info { "pinpoint_config_uri  #{pinpoint_config_uri}" }
 
         previous_environment = ENV.to_hash
+        pinpoint_collector_ip=hash['PINPOINT_COLLECTOR_IP']
         print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-        print(previous_environment)
+        print(pinpoint_collector_ip)
 
-        download_pinpoint_config(pinpoint_config_uri)
+        download_pinpoint_config(pinpoint_config_uri, pinpoint_collector_ip)
         @droplet.copy_resources
 
       end
@@ -96,14 +98,25 @@ module JavaBuildpack
 
     
 
-      def download_pinpoint_config(pinpoint_config_uri)
+      def download_pinpoint_config(pinpoint_config_uri, pinpoint_collector_ip)
 
         with_timing "downloading pinpoint.config to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           Dir.mktmpdir do |root|
             root_path = Pathname.new(root)
             shell "wget -O pinpoint.config #{pinpoint_config_uri}"
+
             FileUtils.mkdir_p(@droplet.sandbox)
             FileUtils.mv("./pinpoint.config", @droplet.sandbox)
+
+            text = File.read(@droplet.sandbox)
+            new_contents = text.gsub(/profiler.collector.ip=127.0.0.1/, pinpoint_collector_ip)
+
+            # To merely print the contents of the file, use:
+            puts new_contents
+
+            # To write changes to the file, use:
+            File.open(@droplet.sandbox, "w") {|file| file.puts new_contents }
+
           end
         end
 
