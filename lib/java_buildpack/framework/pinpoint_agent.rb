@@ -40,8 +40,6 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
-        print("^^^^^^^^^^^^^^^^^^^^^^^^")
-
         download_zip(false, @droplet.sandbox, 'Pinpoint Agent')
         @droplet.copy_resources
 
