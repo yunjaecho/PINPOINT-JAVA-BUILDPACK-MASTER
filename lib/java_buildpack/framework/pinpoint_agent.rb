@@ -105,20 +105,19 @@ module JavaBuildpack
             root_path = Pathname.new(root)
             shell "wget -O pinpoint.config #{pinpoint_config_uri}"
 
+            shell "sed -i 's/127.0.0.1/" + pinpoint_collector_ip + "/g' ./pinpoint.config"
+
             FileUtils.mkdir_p(@droplet.sandbox)
             FileUtils.mv("./pinpoint.config", @droplet.sandbox)
 
-            print("##########")
-            print(@droplet.sandbox)
-            print("##########")
+            # text = File.read(@droplet.sandbox + "pinpoint.config")
+            # new_contents = text.gsub(/profiler.collector.ip=127.0.0.1/, "profiler.collector.ip=" + pinpoint_collector_ip)
+            # print("111111")
+            # print(new_contents)
 
-            text = File.read(@droplet.sandbox + "pinpoint.config")
-            new_contents = text.gsub(/profiler.collector.ip=127.0.0.1/, "profiler.collector.ip=" + pinpoint_collector_ip)
-            print("111111")
-            print(new_contents)
+
 
             # To merely print the contents of the file, use:
-            puts new_contents
             print("222222")
             # To write changes to the file, use:
             #File.open(@droplet.sandbox, "w") {|file| file.puts new_contents }
