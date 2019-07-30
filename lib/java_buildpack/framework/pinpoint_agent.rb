@@ -49,7 +49,7 @@ module JavaBuildpack
         @logger.info { "pinpoint_config_uri  #{pinpoint_config_uri}" }
 
         previous_environment = ENV.to_hash
-        pinpoint_collector_ip=hash['PINPOINT_COLLECTOR_IP']
+        pinpoint_collector_ip=previous_environment['PINPOINT_COLLECTOR_IP']
         print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
         print(pinpoint_collector_ip)
 
