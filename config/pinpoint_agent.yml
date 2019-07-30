@@ -16,4 +16,4 @@
 # Configuration for the Dynatrace SaaS/Managed framework
 ---
 version: 1.+
-repository_root: https://raw.githubusercontent.com/myminseok/pinpoint_agent_repo/master
+repository_root: https://raw.githubusercontent.com/yunjaecho/PINPOINT-BUILDPACK-MASTER/master/pinpoint_agent_repo
