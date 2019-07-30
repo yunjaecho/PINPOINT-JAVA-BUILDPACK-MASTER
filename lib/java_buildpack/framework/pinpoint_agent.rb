@@ -54,7 +54,7 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
-        @droplet.java_opts.add_javaagent(@droplet.sandbox + "pinpoint-agent-1.8.4.jar")
+        @droplet.java_opts.add_javaagent(@droplet.sandbox + "pinpoint-bootstrap-1.8.4.jar")
         @droplet.java_opts.add_system_property('pinpoint.agentId', @application.details['application_name'])
         @droplet.java_opts.add_system_property('pinpoint.applicationName', @application.details['application_name'])
 
