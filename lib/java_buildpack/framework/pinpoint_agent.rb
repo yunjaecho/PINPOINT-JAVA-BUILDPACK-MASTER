@@ -43,18 +43,29 @@ module JavaBuildpack
         download_zip(false, @droplet.sandbox, 'Pinpoint Agent')
         @droplet.copy_resources
 
-        # credentials = @application.services.find_service(FILTER)['credentials']
-        # pinpoint_config_uri=credentials['pinpoint.config.uri']
-        pinpoint_config_uri="https://raw.githubusercontent.com/yunjaecho/PINPOINT-BUILDPACK-MASTER/master/pinpoint.config"
+        credentials = @application.services.find_service(FILTER)['credentials']
+        pinpoint_config_uri=credentials['pinpoint.config.uri']
         @logger.info { "pinpoint_config_uri  #{pinpoint_config_uri}" }
 
-        previous_environment = ENV.to_hash
-        pinpoint_collector_ip=previous_environment['PINPOINT_COLLECTOR_IP']
-        print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-        print(pinpoint_collector_ip)
-
-        download_pinpoint_config(pinpoint_config_uri, pinpoint_collector_ip)
+        download_pinpoint_config(pinpoint_config_uri)
         @droplet.copy_resources
+
+
+        # download_zip(false, @droplet.sandbox, 'Pinpoint Agent')
+        # @droplet.copy_resources
+        #
+        # # credentials = @application.services.find_service(FILTER)['credentials']
+        # # pinpoint_config_uri=credentials['pinpoint.config.uri']
+        # pinpoint_config_uri="https://raw.githubusercontent.com/yunjaecho/PINPOINT-BUILDPACK-MASTER/master/pinpoint.config"
+        # @logger.info { "pinpoint_config_uri  #{pinpoint_config_uri}" }
+        #
+        # previous_environment = ENV.to_hash
+        # pinpoint_collector_ip=previous_environment['PINPOINT_COLLECTOR_IP']
+        # print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+        # print(pinpoint_collector_ip)
+        #
+        # download_pinpoint_config(pinpoint_config_uri, pinpoint_collector_ip)
+        # @droplet.copy_resources
 
       end
 
@@ -98,7 +109,8 @@ module JavaBuildpack
 
     
 
-      def download_pinpoint_config(pinpoint_config_uri, pinpoint_collector_ip)
+      # def download_pinpoint_config(pinpoint_config_uri, pinpoint_collector_ip)
+      def download_pinpoint_config(pinpoint_config_uri)
 
         with_timing "downloading pinpoint.config to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           Dir.mktmpdir do |root|
