@@ -121,8 +121,8 @@ module JavaBuildpack
             puts new_contents
             print("222222")
             # To write changes to the file, use:
-            File.open(@droplet.sandbox, "w") {|file| file.puts new_contents }
-            print("33333")
+            #File.open(@droplet.sandbox, "w") {|file| file.puts new_contents }
+            #print("33333")
 
           end
         end
