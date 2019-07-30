@@ -47,6 +47,10 @@ module JavaBuildpack
         pinpoint_config_uri=credentials['pinpoint.config.uri']
         @logger.info { "pinpoint_config_uri  #{pinpoint_config_uri}" }
 
+        previous_environment = ENV.to_hash
+        println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+        println(previous_environment)
+
         download_pinpoint_config(pinpoint_config_uri)
         @droplet.copy_resources
 
