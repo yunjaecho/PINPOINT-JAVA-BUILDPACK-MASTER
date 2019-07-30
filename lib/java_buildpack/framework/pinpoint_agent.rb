@@ -104,14 +104,8 @@ module JavaBuildpack
           Dir.mktmpdir do |root|
             root_path = Pathname.new(root)
             shell "wget -O pinpoint.config #{pinpoint_config_uri}"
-
-            shell "sed -i 's/127.0.0.1/" + pinpoint_collector_ip + "/g' ./pinpoint.config"
-
             FileUtils.mkdir_p(@droplet.sandbox)
             FileUtils.mv("./pinpoint.config", @droplet.sandbox)
-
-            print("222222")
-
           end
         end
 
