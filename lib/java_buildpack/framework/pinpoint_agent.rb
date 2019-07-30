@@ -112,7 +112,7 @@ module JavaBuildpack
             print(@droplet.sandbox)
             print("##########")
 
-            text = File.read(@droplet.sandbox)
+            text = File.read(@droplet.sandbox + "pinpoint.config")
             print(text)
             new_contents = text.gsub(/profiler.collector.ip=127.0.0.1/, "profiler.collector.ip=" + pinpoint_collector_ip)
             print("111111")
