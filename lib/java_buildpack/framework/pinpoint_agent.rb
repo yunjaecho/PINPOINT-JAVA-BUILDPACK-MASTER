@@ -50,6 +50,8 @@ module JavaBuildpack
 
         previous_environment = ENV.to_hash
         pinpoint_collector_ip=previous_environment['PINPOINT_COLLECTOR_IP']
+        
+        shell "echo pinpoint_collector_ip : " + pinpoint_collector_ip 
         download_pinpoint_config(pinpoint_config_uri, pinpoint_collector_ip)
         @droplet.copy_resources
 
