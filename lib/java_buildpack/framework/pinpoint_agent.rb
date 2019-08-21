@@ -103,6 +103,8 @@ module JavaBuildpack
             shell "sed -i 's/127.0.0.1/" + pinpoint_collector_ip + "/g' ./pinpoint.config"
             FileUtils.mkdir_p(@droplet.sandbox)
             FileUtils.mv("./pinpoint.config", @droplet.sandbox)
+            puts (@droplet.sandbox)
+            puts (pinpoint_collector_ip)
           end
         end
 
